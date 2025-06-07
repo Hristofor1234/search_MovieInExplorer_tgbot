@@ -8,15 +8,15 @@ def get_conn():
 def init_db():
     with get_conn() as conn:  # Открываем соединение с базой данных (автоматически закроется после блока with)
         cur = conn.cursor()  # Получаем курсор для выполнения SQL-запросов
-        cur.execute("""      # Выполняем SQL-запрос на создание таблицы, если она ещё не существует
+        cur.execute("""      
         CREATE TABLE IF NOT EXISTS search_history (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,  -- Уникальный ID запроса (автоматически увеличивается)
-            query TEXT,                            -- Название фильма, которое искал пользователь
-            success BOOLEAN,                       -- Был ли запрос успешным (True/False)
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP  -- Дата и время запроса по умолчанию — текущее
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            query TEXT,                            
+            success BOOLEAN,                       
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP 
         );
         """)
-        conn.commit()  # Сохраняем изменения в базе данных
+        conn.commit()
 
 def save_search(query, success):
     with get_conn() as conn:  # Открываем соединение с базой данных
